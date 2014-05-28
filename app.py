@@ -6,6 +6,8 @@ app = Flask(__name__)
 
 REDDIT_BASE_URL = 'http://reddit.com/r/ads'
 
+# def getVoteDelta()
+
 def getImages():
 	adPage = BeautifulSoup(urllib.urlopen(REDDIT_BASE_URL).read())
 	for div in adPage.find_all('div'):
@@ -16,9 +18,10 @@ def getImages():
 				if counter == maxCount:
 					break
 				if 'thing' in childDiv.get('class'):
-					voteDelta = # function taking params
-					sourceLink = # function taking params
-					redditLink = # function taking params
+					# voteDelta = # function taking params
+					# sourceLink = # function taking params
+					# redditLink = # function taking params
+					print childDiv.attrs
 				counter += 1
 			print counter
 
