@@ -4,8 +4,10 @@ import urllib
 
 app = Flask(__name__)
 
+REDDIT_BASE_URL = 'http://reddit.com/r/ads'
+
 def getImages():
-	adPage = BeautifulSoup(urllib.urlopen('http://reddit.com/r/ads').read())
+	adPage = BeautifulSoup(urllib.urlopen(REDDIT_BASE_URL).read())
 	for div in adPage.find_all('div'):
 		if div.get('id') == 'siteTable':
 			counter = 0
