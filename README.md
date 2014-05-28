@@ -2,6 +2,8 @@
 
 Reddit scraper that scrapes the subbreddit ```/r/ads``` for the top 10 most popular image ads, saves them along with the number of votes, which it the concatenates to give me a list of the 10 most popular Reddit advertisements for a given period of time.
 
+**NOTE: This program saves the highest vote of a post, over a period of time.**
+
 ## Usage
 
 - Clone the repository by running the following:
@@ -26,6 +28,14 @@ $ pip install -r requirements.txt
 	$ heroku create <app_name_here>
 	$ git push heroku master
 	```
+
+## Tech Stack
+
+- Python redis library ```redis``` for storage
+
+- Beautiful soup for parsing web page, from python package ```bs4```
+
+- ```urllib``` for loading web pages
 
 ## Contact
 

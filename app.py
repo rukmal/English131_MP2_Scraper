@@ -2,10 +2,15 @@ from flask import Flask
 from bs4 import BeautifulSoup
 import urllib
 import redis
+import threading
 
 app = Flask(__name__)
 
 REDDIT_BASE_URL = 'http://reddit.com/r/ads'
+
+# Configuring redis
+redisURL = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
+r = redis.Redis(host=redisURL.hostname, port=redisURL.port, password=redisURL.password)
 
 def getVoteDelta(divAttrsDict):
 	upVotes = int(divAttrsDict['data-ups'])
@@ -35,7 +40,18 @@ def getImages():
 					print 'Source link: ' + sourceLink + ' with a vote delta of ' + str(voteDelta)
 				counter += 1
 
-getImages()
+def set_interval(func, sec):
+	def func_wrapper():
+		set_interval(func, sec) 
+		func()  
+	t = threading.Timer(sec, func_wrapper)
+	t.start()
+	return t
+
+def printHello():
+	print 'hello world'
+
+set_interval(printHello, 1)
 
 if __name__ == '__main__':
 	app.run()
