@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import urllib
 import redis
 import threading
+import urlparse
+import os
 
 app = Flask(__name__)
 
@@ -48,10 +50,7 @@ def set_interval(func, sec):
 	t.start()
 	return t
 
-def printHello():
-	print 'hello world'
 
-set_interval(printHello, 1)
 
 if __name__ == '__main__':
 	app.run()
