@@ -1,4 +1,4 @@
-# English 131 Major Paper 2 Scraper
+# English 131 Major Paper 2 Reddit Scraper
 
 Reddit scraper that scrapes the subbreddit ```/r/ads``` for the top 10 most popular image ads, saves them along with the number of votes, which it the concatenates to give me a list of the 10 most popular Reddit advertisements for a given period of time.
 
