@@ -16,26 +16,15 @@ $ git clone https://github.com/rukmal/English131_MP2_Scraper.git
 $ pip install -r requirements.txt
 ```
 
-- Run the application locally, or deploy to Heroku for continuous scraping.
-
-	- Running the application locally:
-	```bash
-	$ python app.py
-	```
-	
-	- Deploying to Heroku:
-	```bash
-	$ heroku create <app_name_here>
-	$ git push heroku master
-	```
+- Run the application locally:
+```bash
+$ python app.py
+```
 
 ## Tech Stack
 
-- Python redis library ```redis``` for storage
-
-- Beautiful soup for parsing web page, from python package ```bs4```
-
-- ```urllib``` for loading web pages
+- Beautiful Soup 4
+- urllib
 
 ## Contact
 

@@ -1,17 +1,12 @@
 from flask import Flask
 from bs4 import BeautifulSoup
 import urllib
-import redis
 import threading
 import urlparse
 import os
-
-app = Flask(__name__)
+import json
 
 REDDIT_BASE_URL = 'http://reddit.com/r/ads'
-
-# Configuring redis
-r = redis.StrictRedis(host='pub-redis-14323.us-east-1-3.1.ec2.garantiadata.com', port=14323, db=0)
 
 def getVoteDelta(divAttrsDict):
 	upVotes = int(divAttrsDict['data-ups'])
@@ -32,7 +27,7 @@ def getImages():
 	for div in adPage.find_all('div'):
 		if div.get('id') == 'siteTable':
 			counter = 0
-			maxCount = 20
+			maxCount = 30
 			for childDiv in div:
 				if counter == maxCount:
 					break
@@ -42,6 +37,8 @@ def getImages():
 					output[sourceLink] = voteDelta
 				counter += 1
 	return output
+
+oldStore = getImages()
 
 def set_interval(func, sec):
 	def func_wrapper():
@@ -57,13 +54,13 @@ def runCycle():
 	for image in newStore:
 		currentCount = -9999
 		try:
-			currentCount = r.get(image)
+			currentCount = oldStore[image]
 		except:
 			pass
 		if newStore[image] > currentCount:
-			r.set(image, currentCount)
+			oldStore[image] = newStore[image]
+	outfile = open('out.json', 'w')
+	outfile.write(json.dumps(oldStore))
+	outfile.close()
 
 set_interval(runCycle, 60)
-
-if __name__ == '__main__':
-	app.run()
