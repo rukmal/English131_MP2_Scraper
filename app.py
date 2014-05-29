@@ -42,6 +42,7 @@ def getImages():
 					sourceLink = getSourceLink(childDiv)
 					output[sourceLink] = voteDelta
 				counter += 1
+	return output
 
 def set_interval(func, sec):
 	def func_wrapper():
