@@ -11,7 +11,6 @@ app = Flask(__name__)
 REDDIT_BASE_URL = 'http://reddit.com/r/ads'
 
 # Configuring redis
-# redisURL = urlparse.urlparse(os.environ.get('redis://rediscloud:xe4SRK3ne879ejFk@pub-redis-14323.us-east-1-3.1.ec2.garantiadata.com:14323'))
 r = redis.StrictRedis(host='pub-redis-14323.us-east-1-3.1.ec2.garantiadata.com', port=14323, db=0)
 
 def getVoteDelta(divAttrsDict):
@@ -54,6 +53,7 @@ def set_interval(func, sec):
 
 def runCycle():
 	newStore = getImages()
+	print 'Running job'
 	for image in newStore:
 		currentCount = -9999
 		try:
@@ -63,7 +63,7 @@ def runCycle():
 		if newStore[image] > currentCount:
 			r.set(image, currentCount)
 
-set_interval(runCycle, 10)
+set_interval(runCycle, 60)
 
 if __name__ == '__main__':
 	app.run()
